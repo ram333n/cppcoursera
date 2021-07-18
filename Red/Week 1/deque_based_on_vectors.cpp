@@ -78,19 +78,19 @@ private:
 	vector<T> front_part, back_part;
 };
 
-//int main() {
-//	Deque<int> d;
-//
-//	for (int i = 0; i < 10; ++i) {
-//		d.PushFront(i);
-//		cout << "Deque : ";
-//		for (size_t j = 0; j < d.Size(); ++j) {
-//			cout << d[j] << " ";
-//		}
-//		cout << endl;
-//	}
-//
-//	cout << "Front : " << d.Front() << ", Back : " << d.Back() << endl;
-//
-//}
+int main() {
+	Deque<int> d;
+
+	for (int i = 0; i < 10; ++i) {
+		d.PushFront(i);
+		cout << "Deque : ";
+		for (size_t j = 0; j < d.Size(); ++j) {
+			cout << d[j] << " ";
+		}
+		cout << endl;
+	}
+
+	cout << "Front : " << d.Front() << ", Back : " << d.Back() << endl;
+
+}
 
