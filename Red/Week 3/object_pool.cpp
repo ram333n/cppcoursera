@@ -15,7 +15,7 @@ public:
 		T* result;
 
 		if (!free_objects.empty()) {
-			result = free_objects.front();
+			result = free_objects.front();//better to avoid of copying T*
 			free_objects.pop();
 		}
 		else {
@@ -31,7 +31,7 @@ public:
 		T* result = nullptr;
 
 		if (!free_objects.empty()) {
-			result = free_objects.front();
+			result = free_objects.front(); //check 18 line
 			free_objects.pop();
 			selected_objects.insert(result);
 		}
