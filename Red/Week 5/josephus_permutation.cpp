@@ -19,7 +19,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
 
     auto it = pool.begin();
     auto next_elem = it;
-    bool is_first_taken = true;
 
     *(first++) = move(*it);
     pool.erase(it);
@@ -43,20 +42,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
             break;
         }
         it = next_elem;
-    }
-}
-
-template <typename RandomIt>
-void MakeJosephusPermutationSuka(RandomIt first, RandomIt last, uint32_t step_size) {
-    vector<typename RandomIt::value_type> pool(first, last);
-    size_t cur_pos = 0;
-    while (!pool.empty()) {
-        *(first++) = pool[cur_pos];
-        pool.erase(pool.begin() + cur_pos);
-        if (pool.empty()) {
-            break;
-        }
-        cur_pos = (cur_pos + step_size - 1) % pool.size();
     }
 }
 
@@ -126,20 +111,11 @@ void TestAvoidsCopying() {
     ASSERT_EQUAL(numbers, expected);
 }
 
-void Pizdetc() {
-    vector<int>a(100000), b(100000);
-    iota(begin(a), end(a), 0);
-    iota(begin(b), end(b), 0);
-    MakeJosephusPermutation(begin(a), end(a), 100);
-    MakeJosephusPermutationSuka(begin(b), end(b), 100);
 
-    ASSERT_EQUAL(a, b);
-}
 
 int main() {
     TestRunner tr;
     RUN_TEST(tr, TestIntVector);
     RUN_TEST(tr, TestAvoidsCopying);
-    RUN_TEST(tr, Pizdetc);
     return 0;
 }
