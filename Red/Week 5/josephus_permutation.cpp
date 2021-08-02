@@ -17,7 +17,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
         pool.push_back(move(*(first + i)));
     }
 
-    size_t cur_pos = 0;
     auto it = pool.begin();
     auto next_elem = it;
     bool is_first_taken = true;
@@ -27,8 +26,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
     it = pool.begin();
 
     while (!pool.empty()) {
-       // size_t dist = pool.size() - cur_pos;
-
         for (size_t i = 0; i < step_size - 1; ++i) {
             if (next(it) != pool.end()) {
                 it++;
@@ -38,8 +35,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
             }
         }
 
-        is_first_taken = false;
-
         next_elem = next(it) != pool.end() ? next(it) : pool.begin();
 
         *(first++) = move(*it);
@@ -48,7 +43,6 @@ void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) 
             break;
         }
         it = next_elem;
-        //cur_pos = (cur_pos + step_size - 1) % pool.size();
     }
 }
 
