@@ -6,13 +6,16 @@ using namespace std;
 template <typename T>
 class SimpleVector {
 public:
-    SimpleVector() = default;
-    explicit SimpleVector(size_t size);
-    SimpleVector(const SimpleVector& other);
+    SimpleVector() = default; //default ctor
+    explicit SimpleVector(size_t size); //explicit ctor
+    SimpleVector(const SimpleVector& other); //copy ctor
+    SimpleVector(SimpleVector&& other); //move ctor
+
     ~SimpleVector();
 
     T& operator[](size_t index);
-    void operator=(const SimpleVector& rhs);
+    void operator=(const SimpleVector& rhs); //copy assignment operator
+    void operator=(SimpleVector&& rhs); //move assignment operator
 
     T* begin();
     T* end();
@@ -48,6 +51,16 @@ SimpleVector<T>::SimpleVector(const SimpleVector& other)
 }
 
 template <typename T>
+SimpleVector<T>::SimpleVector(SimpleVector<T>&& other)
+    : data(other.data)
+    , size(other.size)
+    , capacity(other.capacity)
+{
+    other.data = nullptr;
+    other.size = other.capacity = 0;
+}
+
+template <typename T>
 SimpleVector<T>::~SimpleVector() {
     delete[] data;
 }
@@ -69,6 +82,17 @@ void SimpleVector<T>::operator=(const SimpleVector<T>& rhs) {
         std::swap(tmp.size, size);
         std::swap(tmp.capacity, capacity);
     }
+}
+
+template <typename T>
+void SimpleVector<T>::operator=(SimpleVector<T>&& rhs) {
+    delete[] data;
+    data = rhs.data;
+    capacity = rhs.capacity;
+    size = rhs.size;
+
+    rhs.data = nullptr;
+    rhs.size = rhs.capacity = 0;
 }
 
 template <typename T>
