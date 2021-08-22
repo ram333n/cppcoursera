@@ -47,7 +47,6 @@ private:
 
     vector<map<K, V>> buckets;
     vector<mutex> mutexes;
-    mutex mtx;
     const size_t buckets_size;
 };
 
