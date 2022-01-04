@@ -43,9 +43,9 @@ string MostExpensiveCategory(
 
 vector<Spending> LoadFromXml(istream& input) {
     vector<Spending> result;
-    Document doc = Load(input);
+    Xml::Document doc = Xml::Load(input);
 
-    for (const Node& node : doc.GetRoot().Children()) {
+    for (const Xml::Node& node : doc.GetRoot().Children()) {
         result.push_back({
             node.AttributeValue<string>("category"),
             node.AttributeValue<int>("amount")
@@ -86,27 +86,27 @@ void TestXmlLibrary() {
     <spend amount="12000" category="sport"></spend>
   </july>)");
 
-    Document doc = Load(xml_input);
-    const Node& root = doc.GetRoot();
+    Xml::Document doc = Xml::Load(xml_input);
+    const Xml::Node& root = doc.GetRoot();
     ASSERT_EQUAL(root.Name(), "july");
     ASSERT_EQUAL(root.Children().size(), 3u);
 
-    const Node& food = root.Children().front();
+    const Xml::Node& food = root.Children().front();
     ASSERT_EQUAL(food.AttributeValue<string>("category"), "food");
     ASSERT_EQUAL(food.AttributeValue<int>("amount"), 2500);
 
-    const Node& sport = root.Children().back();
+    const Xml::Node& sport = root.Children().back();
     ASSERT_EQUAL(sport.AttributeValue<string>("category"), "sport");
     ASSERT_EQUAL(sport.AttributeValue<int>("amount"), 12000);
 
-    Node july("july", {});
-    Node transport("spend", { {"category", "transport"}, {"amount", "1150"} });
+    Xml::Node july("july", {});
+    Xml::Node transport("spend", { {"category", "transport"}, {"amount", "1150"} });
     july.AddChild(transport);
     ASSERT_EQUAL(july.Children().size(), 1u);
 }
 
-//int main() {
-//    TestRunner tr;
-//    RUN_TEST(tr, TestXmlLibrary);
-//    RUN_TEST(tr, TestLoadFromXml);
-//}
+int main() {
+    TestRunner tr;
+    RUN_TEST(tr, TestXmlLibrary);
+    RUN_TEST(tr, TestLoadFromXml);
+}
